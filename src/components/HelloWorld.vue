@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>morphological analysis</h1>
+    <h1>markov chain</h1>
     <textarea
       v-model="message"
       class="form-control"
@@ -8,41 +8,19 @@
       @input="tokenize"
       @keyup="tokenize"
     ></textarea>
-    <table v-show="tokens.length" class="table table-hover">
-      <thead>
-        <tr>
-          <th>表層形</th>
-          <th>品詞</th>
-          <th>品詞細分類1</th>
-          <th>品詞細分類2</th>
-          <th>品詞細分類3</th>
-          <th>活用型</th>
-          <th>活用形</th>
-          <th>基本形</th>
-          <th>読み</th>
-          <th>発音</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="token in tokens" :key="token.surface_form">
-          <td>{{ token.surface_form }}</td>
-          <td>{{ token.pos }}</td>
-          <td>{{ token.pos_detail_1 }}</td>
-          <td>{{ token.pos_detail_2 }}</td>
-          <td>{{ token.pos_detail_3 }}</td>
-          <td>{{ token.conjugated_type }}</td>
-          <td>{{ token.conjugated_form }}</td>
-          <td>{{ token.basic_form }}</td>
-          <td>{{ token.reading }}</td>
-          <td>{{ token.pronunciation }}</td>
-        </tr>
-      </tbody>
-    </table>
+
+    <h1>automatically</h1>
+    <div style="padding: 20px; border: solid 10px #ccc">
+      <blockquote class="blockquote">
+        <p>{{ sentence }}</p>
+      </blockquote>
+    </div>
   </div>
 </template>
 
 <script>
 import * as Kuromoji from "kuromoji";
+import Markov from "./Markov.js";
 export default {
   name: "HelloWorld",
   data() {
@@ -51,6 +29,7 @@ export default {
       builder: null,
       tokenizer: null,
       tokens: [],
+      sentence: "",
     };
   },
   created() {
@@ -73,6 +52,13 @@ export default {
       }
       try {
         this.tokens = this.tokenizer.tokenize(this.message);
+
+        const markov = new Markov();
+        const words = this.tokens.map(function (token) {
+          return token.surface_form;
+        });
+        markov.add(words);
+        this.sentence = markov.make();
       } catch (e) {
         console.log(e);
         this.tokens = [];
