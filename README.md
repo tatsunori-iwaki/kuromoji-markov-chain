@@ -1,24 +1,21 @@
-# kuromoji-markov-chain
+<h1 align="center">
+  <br>
+  <img src="./docs/icon.png"alt="Markdownify" width="200">
+  <br>
+  markov chain
+  <br>
+</h1>
+<h4 align="center">
+  <br>In this sample, we are using Kuromoji.js to perform markov chain.
+  <br>This sample is running on top of vue.js.
+  <br>It analyzes Japanese input in the text area in real time.
+  <br>The original text is created by a Markov chain algorithm.
+  <br>
+  <br>
+</h4>
 
-## Project setup
-```
-yarn install
-```
+# live demo
+https://tatsunori-iwaki.github.io/kuromoji-markov-chain/
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# screen shots
+![](docs/screenshot-000.png)
